@@ -7,6 +7,9 @@ import { CategoryModule } from './category/category.module';
 import { ProductModule } from './product/product.module';
 import { BrandModule } from './brand/brand.module';
 import { ModelModule } from './model/model.module';
+import { SizeModule } from './size/size.module';
+import { ProductCategoryModule } from './product-category/product-category.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
 	imports: [
@@ -22,7 +25,10 @@ import { ModelModule } from './model/model.module';
 		CategoryModule,
 		ProductModule,
 		BrandModule,
-		ModelModule
+		ModelModule,
+		SizeModule,
+		ProductCategoryModule,
+		AuthModule
 	],
 	controllers: [],
 	providers: []
