@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { HydratedDocument } from 'mongoose'
 import { Brand } from 'src/brand/brand.model'
 import * as mongoose from 'mongoose'
-import { Model } from 'src/model/model.model'
+import { ModelEntity } from 'src/model/model.model'
 import { Product } from 'src/product/product.model'
 
 export type SizeDocument = HydratedDocument<Size>

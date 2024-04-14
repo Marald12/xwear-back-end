@@ -9,6 +9,7 @@ import { Size, SizeSchema } from './size.model'
 	providers: [SizeService],
 	imports: [
 		MongooseModule.forFeature([{ name: Size.name, schema: SizeSchema }])
-	]
+	],
+	exports: [SizeService]
 })
 export class SizeModule {}

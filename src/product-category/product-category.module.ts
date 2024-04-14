@@ -6,14 +6,20 @@ import {
 	ProductCategory,
 	ProductCategorySchema
 } from './product-category.model'
+import { Category, CategorySchema } from 'src/category/category.model'
+import { CategoryModule } from 'src/category/category.module'
+import { CategoryService } from 'src/category/category.service'
 
 @Module({
 	controllers: [ProductCategoryController],
-	providers: [ProductCategoryService],
+	providers: [ProductCategoryService, CategoryService],
 	imports: [
 		MongooseModule.forFeature([
-			{ name: ProductCategory.name, schema: ProductCategorySchema }
-		])
-	]
+			{ name: ProductCategory.name, schema: ProductCategorySchema },
+			{ name: Category.name, schema: CategorySchema }
+		]),
+		CategoryModule
+	],
+	exports: [ProductCategoryService]
 })
 export class ProductCategoryModule {}

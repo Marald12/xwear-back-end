@@ -9,6 +9,7 @@ import { Brand, BrandSchema } from './brand.model'
 	providers: [BrandService],
 	imports: [
 		MongooseModule.forFeature([{ name: Brand.name, schema: BrandSchema }])
-	]
+	],
+	exports: [BrandService]
 })
 export class BrandModule {}
