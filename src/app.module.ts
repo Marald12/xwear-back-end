@@ -14,6 +14,7 @@ import { MailModule } from './mail/mail.module';
 import { ServiceModule } from './service/service.module';
 import { TokenModule } from './token/token.module';
 import { BasketModule } from './basket/basket.module';
+import { ItemModule } from './item/item.module';
 
 @Module({
 	imports: [
@@ -37,7 +38,8 @@ import { BasketModule } from './basket/basket.module';
 		MailModule,
 		ServiceModule,
 		TokenModule,
-		BasketModule
+		BasketModule,
+		ItemModule
 	],
 	controllers: [],
 	providers: []
