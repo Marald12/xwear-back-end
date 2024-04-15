@@ -24,6 +24,11 @@ import { CategoryModule } from 'src/category/category.module'
 import { SizeModule } from 'src/size/size.module'
 import { BrandModule } from 'src/brand/brand.module'
 import { ModelModule } from 'src/model/model.module'
+import { MailService } from '../mail/mail.service'
+import { MailModule } from '../mail/mail.module'
+import { TokenModule } from '../token/token.module'
+import { Token, TokenSchema } from '../token/token.model'
+import { TokenService } from '../token/token.service'
 
 @Module({
 	controllers: [UserController],
@@ -34,7 +39,9 @@ import { ModelModule } from 'src/model/model.module'
 		ModelService,
 		BrandService,
 		CategoryService,
-		ProductCategoryService
+		ProductCategoryService,
+		MailService,
+		TokenService
 	],
 	imports: [
 		MongooseModule.forFeature([
@@ -44,14 +51,17 @@ import { ModelModule } from 'src/model/model.module'
 			{ name: ModelEntity.name, schema: ModelSchema },
 			{ name: Brand.name, schema: BrandSchema },
 			{ name: Category.name, schema: CategorySchema },
-			{ name: ProductCategory.name, schema: ProductCategorySchema }
+			{ name: ProductCategory.name, schema: ProductCategorySchema },
+			{ name: Token.name, schema: TokenSchema }
 		]),
 		ProductModule,
 		ModelModule,
 		BrandModule,
 		SizeModule,
 		CategoryModule,
-		ProductCategoryModule
+		ProductCategoryModule,
+		MailModule,
+		TokenModule
 	],
 	exports: [UserService]
 })

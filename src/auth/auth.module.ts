@@ -29,6 +29,11 @@ import {
 	ProductCategory,
 	ProductCategorySchema
 } from 'src/product-category/product-category.model'
+import { MailService } from '../mail/mail.service'
+import { MailModule } from '../mail/mail.module'
+import { Token, TokenSchema } from '../token/token.model'
+import { TokenModule } from '../token/token.module'
+import { TokenService } from '../token/token.service'
 
 @Module({
 	controllers: [AuthController],
@@ -41,7 +46,9 @@ import {
 		ModelService,
 		BrandService,
 		CategoryService,
-		ProductCategoryService
+		ProductCategoryService,
+		MailService,
+		TokenService
 	],
 	imports: [
 		JwtModule.registerAsync({
@@ -56,7 +63,8 @@ import {
 			{ name: ModelEntity.name, schema: ModelSchema },
 			{ name: Brand.name, schema: BrandSchema },
 			{ name: Category.name, schema: CategorySchema },
-			{ name: ProductCategory.name, schema: ProductCategorySchema }
+			{ name: ProductCategory.name, schema: ProductCategorySchema },
+			{ name: Token.name, schema: TokenSchema }
 		]),
 		ConfigModule,
 		ProductModule,
@@ -64,7 +72,9 @@ import {
 		BrandModule,
 		SizeModule,
 		CategoryModule,
-		ProductCategoryModule
+		ProductCategoryModule,
+		MailModule,
+		TokenModule
 	]
 })
 export class AuthModule {}

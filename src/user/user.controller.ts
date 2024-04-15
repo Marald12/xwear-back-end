@@ -5,6 +5,8 @@ import { UpdateUserDto } from './dto/update-user.dto'
 import { CurrentUser } from './user.decorator'
 import { Auth } from 'src/auth/auth.guard'
 import { UpdatePasswordDto } from './dto/update-password.dto'
+import { RestoreUserDto } from './dto/restore-user.dto'
+import { UpdatePasswordFromTokenDto } from './dto/update-password-from-token.dto'
 
 @Controller('user')
 export class UserController {
@@ -40,5 +42,15 @@ export class UserController {
 	@Auth()
 	updatePassword(@CurrentUser() user: any, @Body() dto: UpdatePasswordDto) {
 		return this.userService.updatePassword(user._id, dto)
+	}
+
+	@Post('restore-password')
+	restorePassword(@Body() dto: RestoreUserDto) {
+		return this.userService.restorePassword(dto)
+	}
+
+	@Put('update-password-from-token')
+	updatePasswordFromToken(@Body() dto: UpdatePasswordFromTokenDto) {
+		return this.userService.updatePasswordFromToken(dto)
 	}
 }

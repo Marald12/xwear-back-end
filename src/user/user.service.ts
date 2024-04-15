@@ -11,12 +11,18 @@ import { Model } from 'mongoose'
 import { compare, genSalt, hash } from 'bcryptjs'
 import { ProductService } from 'src/product/product.service'
 import { UpdatePasswordDto } from './dto/update-password.dto'
+import { RestoreUserDto } from './dto/restore-user.dto'
+import { MailService } from '../mail/mail.service'
+import { TokenService } from '../token/token.service'
+import { UpdatePasswordFromTokenDto } from './dto/update-password-from-token.dto'
 
 @Injectable()
 export class UserService {
 	constructor(
 		@InjectModel(User.name) private readonly userModel: Model<User>,
-		private readonly productService: ProductService
+		private readonly productService: ProductService,
+		private readonly mailService: MailService,
+		private readonly tokenService: TokenService
 	) {}
 
 	async create(dto: CreateUserDto) {
@@ -108,6 +114,36 @@ export class UserService {
 		await user.updateOne({
 			password: hashPassword
 		})
+
+		return 'Пароль успешно изменён'
+	}
+
+	async restorePassword(dto: RestoreUserDto) {
+		const alphabet = 'abcdefghijklmnopqrstuvwxyz'
+		let randomToken = ''
+		while (randomToken.length < 22)
+			randomToken += alphabet[Math.floor(Math.random() * alphabet.length)]
+
+		await this.mailService.sendConfirmMail({ ...dto }, randomToken)
+
+		return await this.tokenService.create({
+			token: randomToken,
+			email: dto.email
+		})
+	}
+
+	async updatePasswordFromToken(dto: UpdatePasswordFromTokenDto) {
+		const token = await this.tokenService.findOne(dto.token)
+		const user = await this.findByEmail(token.email)
+
+		const salt = await genSalt(10)
+		const hashPassword = await hash(dto.password, salt)
+
+		await user.updateOne({
+			password: hashPassword
+		})
+
+		await this.tokenService.findOneAndDelete(dto.token)
 
 		return 'Пароль успешно изменён'
 	}

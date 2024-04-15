@@ -10,11 +10,16 @@ import { ModelModule } from './model/model.module'
 import { SizeModule } from './size/size.module'
 import { ProductCategoryModule } from './product-category/product-category.module'
 import { AuthModule } from './auth/auth.module'
+import { MailModule } from './mail/mail.module';
+import { ServiceModule } from './service/service.module';
+import { TokenModule } from './token/token.module';
+import { BasketModule } from './basket/basket.module';
 
 @Module({
 	imports: [
 		ConfigModule.forRoot({
-			envFilePath: '.env'
+			envFilePath: '.env',
+			isGlobal: true
 		}),
 		MongooseModule.forRootAsync({
 			imports: [ConfigModule],
@@ -28,7 +33,11 @@ import { AuthModule } from './auth/auth.module'
 		ModelModule,
 		SizeModule,
 		ProductCategoryModule,
-		AuthModule
+		AuthModule,
+		MailModule,
+		ServiceModule,
+		TokenModule,
+		BasketModule
 	],
 	controllers: [],
 	providers: []
