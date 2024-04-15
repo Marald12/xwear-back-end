@@ -46,6 +46,7 @@ import { ProductCategoryService } from 'src/product-category/product-category.se
 		SizeModule,
 		CategoryModule,
 		ProductCategoryModule
-	]
+	],
+	exports: [ProductService]
 })
 export class ProductModule {}
