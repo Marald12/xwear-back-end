@@ -29,11 +29,15 @@ import { MailModule } from '../mail/mail.module'
 import { TokenModule } from '../token/token.module'
 import { Token, TokenSchema } from '../token/token.model'
 import { TokenService } from '../token/token.service'
+import { Basket, BasketSchema } from '../basket/basket.model'
+import { BasketService } from '../basket/basket.service'
+import { BasketModule } from '../basket/basket.module'
 
 @Module({
 	controllers: [UserController],
 	providers: [
 		UserService,
+		BasketService,
 		ProductService,
 		SizeService,
 		ModelService,
@@ -52,7 +56,8 @@ import { TokenService } from '../token/token.service'
 			{ name: Brand.name, schema: BrandSchema },
 			{ name: Category.name, schema: CategorySchema },
 			{ name: ProductCategory.name, schema: ProductCategorySchema },
-			{ name: Token.name, schema: TokenSchema }
+			{ name: Token.name, schema: TokenSchema },
+			{ name: Basket.name, schema: BasketSchema }
 		]),
 		ProductModule,
 		ModelModule,
@@ -61,7 +66,8 @@ import { TokenService } from '../token/token.service'
 		CategoryModule,
 		ProductCategoryModule,
 		MailModule,
-		TokenModule
+		TokenModule,
+		BasketModule
 	],
 	exports: [UserService]
 })

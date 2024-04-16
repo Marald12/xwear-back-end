@@ -15,6 +15,7 @@ import { RestoreUserDto } from './dto/restore-user.dto'
 import { MailService } from '../mail/mail.service'
 import { TokenService } from '../token/token.service'
 import { UpdatePasswordFromTokenDto } from './dto/update-password-from-token.dto'
+import { BasketService } from '../basket/basket.service'
 
 @Injectable()
 export class UserService {
@@ -22,7 +23,8 @@ export class UserService {
 		@InjectModel(User.name) private readonly userModel: Model<User>,
 		private readonly productService: ProductService,
 		private readonly mailService: MailService,
-		private readonly tokenService: TokenService
+		private readonly tokenService: TokenService,
+		private readonly basketService: BasketService
 	) {}
 
 	async create(dto: CreateUserDto) {
@@ -35,10 +37,18 @@ export class UserService {
 		const salt = await genSalt(10)
 		const hashPassword = await hash(dto.password, salt)
 
-		return await this.userModel.create({
+		const user = await this.userModel.create({
 			email: dto.email,
 			password: hashPassword
 		})
+
+		const basket = await this.basketService.create(user.id)
+
+		await user.updateOne({
+			basket: basket._id
+		})
+
+		return user
 	}
 
 	async findByEmail(email: string) {
@@ -59,7 +69,7 @@ export class UserService {
 	async findOne(id: string) {
 		const user = await this.userModel
 			.findById(id)
-			.populate('likesProducts')
+			.populate(['likesProducts', 'basket'])
 			.exec()
 		if (!user) throw new NotFoundException('Пользователь не найден')
 

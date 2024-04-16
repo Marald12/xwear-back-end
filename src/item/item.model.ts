@@ -11,8 +11,11 @@ export class Item {
 	@Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Basket' })
 	basket: Basket
 
-	@Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }] })
-	products: Product[]
+	@Prop()
+	count: number
+
+	@Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Product' })
+	product: Product
 }
 
 export const ItemSchema = SchemaFactory.createForClass(Item)

@@ -34,6 +34,8 @@ import { MailModule } from '../mail/mail.module'
 import { Token, TokenSchema } from '../token/token.model'
 import { TokenModule } from '../token/token.module'
 import { TokenService } from '../token/token.service'
+import { BasketService } from '../basket/basket.service'
+import { Basket, BasketSchema } from '../basket/basket.model'
 
 @Module({
 	controllers: [AuthController],
@@ -48,7 +50,8 @@ import { TokenService } from '../token/token.service'
 		CategoryService,
 		ProductCategoryService,
 		MailService,
-		TokenService
+		TokenService,
+		BasketService
 	],
 	imports: [
 		JwtModule.registerAsync({
@@ -64,7 +67,8 @@ import { TokenService } from '../token/token.service'
 			{ name: Brand.name, schema: BrandSchema },
 			{ name: Category.name, schema: CategorySchema },
 			{ name: ProductCategory.name, schema: ProductCategorySchema },
-			{ name: Token.name, schema: TokenSchema }
+			{ name: Token.name, schema: TokenSchema },
+			{ name: Basket.name, schema: BasketSchema }
 		]),
 		ConfigModule,
 		ProductModule,
