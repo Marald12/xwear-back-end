@@ -2,7 +2,7 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common'
 import { User } from './user.model'
 import * as mongoose from 'mongoose'
 
-interface UserOfId {
+interface UserOfId extends User {
 	_id: mongoose.Types.ObjectId
 }
 

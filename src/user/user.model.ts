@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose'
 import { HydratedDocument } from 'mongoose'
 import { Product } from 'src/product/product.model'
 import { Basket } from '../basket/basket.model'
+import { Order } from '../order/order.model'
 
 export type UserDocument = HydratedDocument<User>
 
@@ -30,6 +31,9 @@ export class User {
 
 	@Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Basket' })
 	basket: Basket
+
+	@Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }] })
+	orders: Order[]
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

@@ -54,7 +54,7 @@ export class UserService {
 	async findByEmail(email: string) {
 		const user = await this.userModel
 			.findOne({ email })
-			.select('password')
+			.select('password basket')
 			.exec()
 		if (!user)
 			throw new NotFoundException('Пользователь с таким E-mail не найден')

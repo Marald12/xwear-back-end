@@ -81,9 +81,65 @@ export class ProductService {
 		return product
 	}
 
-	async findAll() {
+	async findAll(
+		searchTerm?: string,
+		size?: number,
+		model?: string,
+		brand?: string,
+		category?: string,
+		mainCategory?: string
+	) {
+		let searchOptions = {}
+
+		if (searchTerm) {
+			searchOptions = {
+				title: {
+					$regex: searchTerm
+				}
+			}
+		}
+
+		if (size) {
+			const sizeModel = await this.sizeService.findBySize(size)
+
+			searchOptions = {
+				...searchOptions,
+				sizes: sizeModel._id
+			}
+		}
+
+		if (model) {
+			searchOptions = {
+				...searchOptions,
+				model
+			}
+		}
+
+		if (brand) {
+			searchOptions = {
+				...searchOptions,
+				brand
+			}
+		}
+
+		if (category) {
+			searchOptions = {
+				...searchOptions,
+				category
+			}
+		}
+
+		if (mainCategory) {
+			searchOptions = {
+				...searchOptions,
+				maincategory: mainCategory
+			}
+		}
+
 		return await this.productModel
-			.find()
+			.find({
+				...searchOptions
+			})
 			.populate(['sizes', 'brand', 'model', 'maincategory', 'category'])
 			.exec()
 	}

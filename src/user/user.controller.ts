@@ -22,6 +22,12 @@ export class UserController {
 		return this.userService.findAll()
 	}
 
+	@Get('get-profile')
+	@Auth()
+	getProfile(@CurrentUser() user: any) {
+		return this.userService.findOne(user._id)
+	}
+
 	@Get(':id')
 	findOne(@Param('id') id: string) {
 		return this.userService.findOne(id)

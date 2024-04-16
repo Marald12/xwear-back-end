@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common'
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	Param,
+	Post,
+	Query
+} from '@nestjs/common'
 import { ProductService } from './product.service'
 import { ProductDto } from './product.dto'
 
@@ -12,8 +20,22 @@ export class ProductController {
 	}
 
 	@Get()
-	findAll() {
-		return this.productService.findAll()
+	findAll(
+		@Query('search') searchTerm?: string,
+		@Query('size') size?: string,
+		@Query('model') model?: string,
+		@Query('brand') brand?: string,
+		@Query('category') category?: string,
+		@Query('mainCategory') mainCategory?: string
+	) {
+		return this.productService.findAll(
+			searchTerm,
+			+size,
+			model,
+			brand,
+			category,
+			mainCategory
+		)
 	}
 
 	@Get(':id')
