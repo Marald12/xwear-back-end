@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Basket } from './basket.model'
+import * as mongoose from 'mongoose'
 import { Model } from 'mongoose'
 
 @Injectable()
@@ -9,7 +10,7 @@ export class BasketService {
 		@InjectModel(Basket.name) private readonly basketModel: Model<Basket>
 	) {}
 
-	async create(userId: string) {
+	async create(userId: string | mongoose.Types.ObjectId) {
 		const basket = await this.basketModel.create({
 			user: userId
 		})

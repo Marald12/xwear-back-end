@@ -87,7 +87,9 @@ export class ProductService {
 		model?: string,
 		brand?: string,
 		category?: string,
-		mainCategory?: string
+		mainCategory?: string,
+		skip?: number,
+		limit?: number
 	) {
 		let searchOptions = {}
 
@@ -141,6 +143,8 @@ export class ProductService {
 				...searchOptions
 			})
 			.populate(['sizes', 'brand', 'model', 'maincategory', 'category'])
+			.limit(limit)
+			.skip(skip)
 			.exec()
 	}
 

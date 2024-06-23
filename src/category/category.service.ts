@@ -17,7 +17,10 @@ export class CategoryService {
 	}
 
 	async findAll() {
-		return await this.categoryModel.find().exec()
+		return await this.categoryModel
+			.find()
+			.populate(['categories', 'products'])
+			.exec()
 	}
 
 	async findOne(id: string) {

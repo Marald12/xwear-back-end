@@ -33,4 +33,12 @@ export class OrderService {
 
 		return order
 	}
+
+	async findAll() {
+		return await this.orderModel.find().populate(['user', 'items']).exec()
+	}
+
+	async findOne(id: string) {
+		return await this.orderModel.findById(id).populate(['user', 'items']).exec()
+	}
 }

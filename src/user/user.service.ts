@@ -129,6 +129,7 @@ export class UserService {
 	}
 
 	async restorePassword(dto: RestoreUserDto) {
+		await this.findByEmail(dto.email)
 		const alphabet = 'abcdefghijklmnopqrstuvwxyz'
 		let randomToken = ''
 		while (randomToken.length < 22)

@@ -26,7 +26,9 @@ export class ProductController {
 		@Query('model') model?: string,
 		@Query('brand') brand?: string,
 		@Query('category') category?: string,
-		@Query('mainCategory') mainCategory?: string
+		@Query('mainCategory') mainCategory?: string,
+		@Query('skip') skip?: string,
+		@Query('limit') limit?: string
 	) {
 		return this.productService.findAll(
 			searchTerm,
@@ -34,7 +36,9 @@ export class ProductController {
 			model,
 			brand,
 			category,
-			mainCategory
+			mainCategory,
+			+skip,
+			+limit
 		)
 	}
 
